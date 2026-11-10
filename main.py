@@ -30,19 +30,30 @@ HTTP_HDRS = {
 }
 
 
-def get_value_from_config(path):
-	# gets a values from a nested object
-	with open("config.json") as file:
-		config_json = json.load(file)
-		data = config_json
 
-		for prop in path:
-			if len(prop) == 0:
-				continue
-			if prop.isdigit():
-				prop = int(prop)
-			data = data[prop]
-	return data
+def get_value_from_config(path):
+    import os
+    import json
+
+    config_text = os.environ.get("BOT_CONFIG_JSON")
+
+    if config_text:
+        config_json = json.loads(config_text)
+    else:
+        with open("config.json", encoding="utf-8") as file:
+            config_json = json.load(file)
+
+    data = config_json
+
+    for prop in path:
+        if not prop:
+            continue
+        if isinstance(data, list) and str(prop).isdigit():
+            prop = int(prop)
+        data = data[prop]
+
+    return data
+
 
 
 def get_links_to_offers() -> dict:
