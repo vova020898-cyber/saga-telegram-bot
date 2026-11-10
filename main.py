@@ -10,7 +10,7 @@ from zipcodes import get_neighborhoods_for_zipcode
 
 # If don't want this script to send anything to telegram,
 # set this to True.
-TEST_MODE = False
+TEST_MODE = True
 
 # Loglevel (logging.(DEBUG|INFO|WARNING|ERROR))
 LOG_LEVEL = logging.INFO
