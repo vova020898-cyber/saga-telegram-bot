@@ -63,23 +63,23 @@ def get_links_to_offers() -> dict:
         print("SAGA: HTML не получен")
         return {}
 
+    all_links = []
+    soup = BeautifulSoup(html, "html.parser")
 
-	all_links = []
-	soup = BeautifulSoup(html, "html.parser")
+    for link in soup.find_all("a"):
+        href = link.get("href", "")
+        if "/immobiliensuche/immo-detail/" in href:
+            all_links.append(
+                "https://saga.hamburg" + href
+            )
 
-	for link in soup.find_all('a'):
-		if "/immobiliensuche/immo-detail/" in link.get("href", ""):
-			all_links.append("https://saga.hamburg"\
-				 + link.get("href", ""))
-	# remove duplicates
-	all_links = list(set(all_links))
+    all_links = list(set(all_links))
 
-	return {
-		"apartments": [link for link in all_links if any(x in link.lower() for x in ["wohnung", "apartment", "zimmer"])],
-		"offices":  [link for link in all_links if any(x in link.lower() for x in ["buro", "büro", "gewerbe"])],
-		"parking":  [link for link in all_links if any(x in link.lower() for x in ["stellplatz", ""])]
-	}
-
+    return {
+        "apartments": all_links,
+        "offices": [],
+        "parking": []
+    }
 
 
 def get_html_from_saga():
