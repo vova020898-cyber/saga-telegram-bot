@@ -58,7 +58,11 @@ def get_value_from_config(path):
 
 def get_links_to_offers() -> dict:
 	html = get_html_from_saga()
-	if html == "": return {}
+	
+    if not html:
+        print("SAGA: HTML не получен")
+        return {}
+
 
 	all_links = []
 	soup = BeautifulSoup(html, "html.parser")
