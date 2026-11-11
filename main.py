@@ -57,8 +57,8 @@ def get_value_from_config(path):
 
 
 def get_links_to_offers() -> dict:
-	html = get_html_from_saga()
-	
+    html = get_html_from_saga()
+
     if not html:
         print("SAGA: HTML не получен")
         return {}
